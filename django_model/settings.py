@@ -4,15 +4,7 @@ import tensorflow as tf
 from keras.applications import vgg16
 from tensorflow.python.keras.backend import set_session
 
-# BACKEND Compatible
-tf.compat.v1.disable_v2_behavior()
-
-SESS = tf.compat.v1.Session()
-GRAPH1 = tf.compat.v1.get_default_graph()
-
-# Sets the global Tensorflow session.
-set_session(SESS)
-
+# Initialize VGG16 model
 IMAGE_MODEL = vgg16.VGG16(weights='imagenet')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.

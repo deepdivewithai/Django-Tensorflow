@@ -3,10 +3,10 @@ from keras.preprocessing.image import img_to_array, load_img
 from tensorflow.python.keras.backend import set_session
 from django.core.files.storage import default_storage
 from django.views.generic import TemplateView
-from django.http import HttpResponse
 from keras.applications import vgg16
 from django.shortcuts import render
 from django.conf import settings
+import tensorflow as tf
 import numpy as np
 
 def index(request):
@@ -19,27 +19,25 @@ def index(request):
         file_url = default_storage.path(file_name)
 
         #
-        # https://www.tensorflow.org/api_docs/python/tf/keras/utils/load_img
+        # Load and preprocess the image
         #
-        image = load_img(file_url, target_size=(224,224))
+        image = load_img(file_url, target_size=(224, 224))
         numpy_array = img_to_array(image)
         image_batch = np.expand_dims(numpy_array, axis=0)
-        process_image = vgg16.preprocess_input(image_batch.copy())
 
-        #
-        # get the predicted probabilities
-        #
-        with settings.GRAPH1.as_default():
-            set_session(settings.SESS)
-            predicitions = settings.IMAGE_MODEL.predict(process_image)
+        processed_image = vgg16.preprocess_input(image_batch.copy())
 
-        #
-        # Output/Return Data
-        #
+        # #
+        # # Get the predicted probabilities
+        # #
+        predictions = settings.IMAGE_MODEL.predict(processed_image)
+
+        top_predictions = decode_predictions(predictions, top=5)
+
+        # Define the path to the image with bounding boxes
+        bounded_image_path = 'path_to_bounded_image.jpg'  # Update with the actual path
         
-        label = decode_predictions(predicitions, top=10)
-        return render(request, "index.html", {"predictions": label})
+        return render(request, "index.html", {"predictions": top_predictions[0], "image_path": bounded_image_path})
     else:
         return render(request, 'index.html')
-    
-    return render(request, "index.html")
+            
