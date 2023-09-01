@@ -12,8 +12,7 @@ import tensorflow as tf
 import numpy as np
 import json
 
-img_height, img_width = 244,244
-with open('./model/imagenet_classes.json', 'r', encoding="utf8") as f:
+with open('./model/imagenet_classes.json', 'r') as f:
     labelInfo = f.read()
 
 labelInfo = json.loads(labelInfo)
@@ -47,7 +46,9 @@ def prediction(request):
     with model_graph.as_default():
         with tf_session.as_default():
             predi = model.predict(x)
-
+    
+    print(predi)
     predictedLabel = labelInfo[str(np.argmax(predi[0]))]
+    print(predictedLabel)
 
-    return render(request, 'prediction.html', {"file_path": file_url, "prdictedLabel": predictedLabel})
+    return render(request, 'prediction.html', {"file_path": file_url, "predictedLabel": predictedLabel[1]})
