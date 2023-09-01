@@ -1,20 +1,6 @@
-<h1>Hello World!</h1>
-<form method='post' enctype="multipart/form-data">
-    {% csrf_token %}
-    <input type="file" name="imageFile" />
-    <input type="submit" name="submit" value="Upload" />
+<h1>Image Uploader</h1>
+<form method="post" enctype="multipart/form-data" action="prediction">
+  {% csrf_token %}
+  <input type="file" name="imageFile" />
+  <input type="submit" value="Upload" />
 </form>
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Image Prediction</title>
-</head>
-<body>
-    <h1>Image Prediction Results</h1>
-    
-    <h2>Uploaded Image:</h2>
-    <img src="{% if image_path %}{{ image_path }}{% endif %}" alt="Uploaded Image">
-</body>
-</html>
-
