@@ -1,19 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
-    <h1>Image Prediction Results</h1>
-    <h2>Uploaded Image:</h2>
-    <img src="{{ file_path }}" alt="Uploaded Image">
-    <!-- {{file_path}}
-    <br>
-    {{"C:\Users\Chetan\Desktop\Django-Tensorflow\media\394929_61bb76ee5c2bc_552A2m6.webp"}} -->
-</body>
-
-</html>
+{% block content %}
+<h1>Image Prediction Results</h1>
+<h2>Uploaded Image:</h2>
+<img src="{{ file_path }}" alt="Uploaded Image">
+{% endblock %}
