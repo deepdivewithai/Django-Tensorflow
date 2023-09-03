@@ -1,6 +1,12 @@
 {% block content %}
 <h1>Image Prediction Results</h1>
 <h2>Uploaded Image:</h2>
-<h1>The Image is of <span style="text-transform: capitalize;">{{ predictedLabel }}</span></h1>
-<img src="{{ file_path }}" alt="Uploaded Image">
+<div style="text-align: center;">
+    <h1>The Image is of <span style="color: maroon;
+                                    text-transform: uppercase;
+                                    text-decoration: underline;
+                                    text-underline-offset: 10px;">{{ predictedLabel }}</span></h1>
+    <img style="width: 800px;" src="{{ file_path }}" alt="Uploaded Image">
+</div>
+
 {% endblock %}

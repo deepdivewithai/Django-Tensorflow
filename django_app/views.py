@@ -1,28 +1,10 @@
 from django.core.files.storage import default_storage
-from rest_framework.views import APIView
 from keras.preprocessing import image
 from django.shortcuts import render
-from django.http import HttpResponse
-from .serializers import ImagesSerializer
-from .models import Image
 from keras.models import load_model
 import tensorflow as tf
 import numpy as np
 import json
-
-
-class ImageView(APIView):
-    def post(self, request):
-        serializer = ImagesSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return HttpResponse("Image Save Successfully!")
-        return HttpResponse(serializer.errors)
-    
-    def get(self, request):
-        data = Image.objects.all()
-        serializer = ImagesSerializer(data)
-        return HttpResponse(serializer.data)
 
 with open('./model/imagenet_classes.json', 'r') as f:
     labelInfo = f.read()

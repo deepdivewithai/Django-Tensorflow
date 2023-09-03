@@ -8,7 +8,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('django_app.urls')),
     path('prediction', views.prediction, name='prediction'),
-    path('images/', views.APIView.as_view(), name="images"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
